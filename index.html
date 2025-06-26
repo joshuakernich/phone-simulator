@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Phone Simulator</title>
+	<script type="text/javascript" src="./js/jq.js"></script>
+	<script type="text/javascript" src="./js/uber.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			const H = 1920;
+
+			setInterval(function(){
+				let scale = $(window).innerHeight()/H;
+				$('simulator').css({ 'transform':'scale('+scale+')'});
+			},100);
+
+
+			$('appicon[is="uber"]').click(function(){
+
+				let app = new UberApp();
+				app.$el.appendTo('simulator');
+				
+				app.$el.css({
+					'transform':'scale(0.2, 0.11)',
+					'transform-origin':'top left',
+					'top':'75px',
+					'left':'75px',
+					'transition':'all 0.5s',
+				});
+
+				setTimeout(function(){
+					app.$el.css({
+						'top':'0px',
+						'left':'0px',
+						'transform':'scale(1)'
+					})
+				})
+			})
+
+			
+		})
+	</script>
+	<style>
+		body{
+			background: radial-gradient(#111, black);
+			width: 100vw;
+			height: 100vh;
+			overflow: hidden;
+			padding: 0px;
+			margin: 0px;
+
+			--grid: 40px;
+
+			font-family: sans-serif;
+			color: black;
+			font-size: var(--grid);
+		}
+		simulator{
+			display: block;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			margin: auto;
+			width: 1080px;
+			height: 1920px;
+			box-sizing: border-box;
+			overflow: hidden;
+			border-radius: 70px;
+		}
+
+		home{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			margin: auto;
+			background: url(./img/wallpaper-cat.jpg);
+			background-size: cover;
+			background-position: center;
+			box-sizing: border-box;
+			padding: 60px;
+		}
+
+		app{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			margin: auto;
+			background: #222;
+			border-radius: 70px;
+			overflow: hidden;
+		}
+
+		layer{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			margin: auto;
+		}
+
+		panel{
+			display: block;
+			padding: var(--grid);
+			background: rgba(255,255,255,0.5);
+			position: relative;
+			backdrop-filter: blur(20px);
+			box-shadow: 0px 0px 50px black;
+		}
+
+		textentry{
+			display: block;
+			background: rgba(0,0,0,0.1);
+			border: rgba(0,0,0,0.1);
+			border-radius: calc( var(--grid) * 3 );
+			width: 100%;
+			padding: var(--grid);
+			box-sizing: border-box;
+		}
+
+		message{
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		message p{
+			display: inline-block;
+			
+			border: rgba(0,0,0,0.1);
+			border-radius: calc( var(--grid) * 3 );
+			
+			padding: var(--grid) calc( var(--grid)*1.5);
+			box-sizing: border-box;
+			background: black;
+			color: white;
+		}
+
+		message[type='me']{
+			text-align: right;
+			
+		}
+
+		message[type='me'] p{
+			background: rgba(0,0,0,0.1);
+			color: black;
+		}
+
+		map{
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			background: #ddd;
+			width: 2000px;
+			height: 2000px;
+		}
+
+		svg{
+			stroke: white;
+			stroke-width: 20;
+			fill: none;
+		}
+
+		path[thicc='2']{
+			stroke-width: 40;
+		}
+
+		path[thicc='3']{
+			stroke-width: 60;
+		}
+
+		car{
+			width: 190px;
+			height: 137.5px;
+			background: url(./img/car-sprite-transparent.png);
+			background-size: 300%;
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			z-index: 1;
+		}
+
+		car[r='0']{ background-position: -100% -100%; }
+		car[r='45']{ background-position: -0% -100%; }
+		car[r='90']{ background-position: -100% -0%; }
+		car[r='135']{ background-position: -0% -0%; }
+		car[r='180']{ background-position: -100% -300%; }
+		car[r='225']{ background-position: -0% -300%; }
+		car[r='270']{ background-position: -100% -200%; }
+		car[r='315']{ background-position: -0% -200%; }
+	
+		timesquare{
+			position: absolute;
+			display: block;
+			right: var(--grid);
+			top: var(--grid);
+			height: calc( var(--grid) * 4 );
+			width: calc( var(--grid) * 4 );
+			background: #5B66FC;
+			color: white;
+			text-align: center;
+			line-height: calc( var(--grid) * 3.25 );
+			font-size: calc( var(--grid) * 2 );
+		}
+
+		timesquare:after{
+			content: "minutes";
+			position: absolute;
+			left: 0px;
+			right: 0px;
+			bottom: 30px;
+			font-size: 30px;
+			line-height: 30px;
+		}
+
+		panel[glue='bottom']{
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+		}
+
+		p{
+			margin: 0px;
+			padding: 0px;
+		}
+
+		arrival{
+			display: block;
+			height: calc( var(--grid) * 3.5 );
+			line-height: calc( var(--grid) * 2 );
+			text-align: left;
+			font-size:  calc( var(--grid) * 1.3 );
+			margin-bottom: var(--grid);
+			color: #aaa;
+		}
+
+		arrival name, arrival time{
+			color: black;
+		}
+
+		maptranslate{
+			display: block;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
+
+		messageswrapper{
+			display: block;
+			height: 450px;
+			overflow: hidden;
+			position: relative;
+			background: linear-gradient(to bottom, rgba(0,0,0,0.1), transparent);
+			border-radius: var(--grid) var(--grid) 0px 0px;
+			
+			margin-top: var(--grid);
+		}
+
+		messages{
+			display: block;
+			overflow: hidden;
+			position: absolute;
+			bottom: 0px;
+			width: 100%;
+			padding: 0px var(--grid);
+			box-sizing: border-box;
+		}
+
+		avatar{
+			display: inline-block;
+			width: calc( var(--grid) * 4);
+			height: calc( var(--grid) * 4);
+			border-radius: 100%;
+			background: gray;
+			vertical-align: middle;
+			margin-right: var(--grid);
+
+			background: url(./img/avatar-dude.png);
+			background-size: cover;
+			background-position: center;
+			position: relative;
+	
+			border: 2px solid black;
+
+		}
+
+		rating:before{
+			content: "★ ";
+		}
+
+		rating{
+			position: absolute;
+			bottom: -5px;
+			left: 0px;
+			right: 0px;
+			font-size: 30px;
+			text-align: center;
+			line-height: 50px;
+			font-weight: bold;
+			color: white;
+			background: black;
+			margin: 0px 10px;
+
+		}
+
+		destination{
+			display: block;
+			position: absolute;
+			width: 0px;
+			height: 0px;
+		}
+
+		destination:after{
+			content: "";
+			width: var(--grid);
+			height: var(--grid);
+			border: 15px solid black;
+			position: absolute;
+			transform: translate(-50%,-50%);
+			box-sizing: border-box;
+			background: white;
+		}
+
+		marker{
+			
+			height: calc( var(--grid) * 2.5 );
+			position: absolute;
+			bottom: calc( var(--grid) * 1.75 );
+			left: calc( var(--grid) * -1.2 );
+			white-space: nowrap;
+			display: inline-block;
+			background: black;
+		}
+
+		marker:before{
+			content: "";
+			width: 0; 
+			height: 0; 
+			border-left: calc( var(--grid) * 0.6 ) solid transparent;
+			border-right: calc( var(--grid) * 0.6 ) solid transparent;
+			border-top: calc( var(--grid) * 1 ) solid black;
+			display: block;
+			position: absolute;
+			left: calc( var(--grid) * 0.6 );
+			bottom: calc( var(--grid) * -1 );
+		}
+
+		markericon{
+			width: calc( var(--grid) * 2.5 );
+			height: calc( var(--grid) * 2.5 );
+			background-size: 70%;
+			background-position: center;
+			background-repeat: no-repeat;
+			display: inline-block;
+			vertical-align: middle;
+		}	
+
+		markername{
+			color: white;
+			
+			left: calc( var(--grid) * 2.5 );
+			top: 0px;
+			padding: 0px var(--grid);
+			line-height: calc( var(--grid) * 2.5 );
+			white-space: nowrap;
+			width: inline-block;
+			vertical-align: middle;
+		}
+
+		appicon{
+			width: 200px;
+			height: 200px;
+			background: black;
+			display: inline-block;
+			border-radius: 50px;
+			margin: 15px;
+			background-size: 100%;
+			background-position: center;
+		}
+
+		dock{
+			position: absolute;
+			
+			box-sizing: border-box;
+			background: rgba(0,0,0,0.3);
+			bottom: 30px;
+			left: 30px;
+			right: 30px;
+			display: block;
+			border-radius: 50px;
+			backdrop-filter: blur(10px);
+			padding: 20px;
+			text-align: center;
+		}
+
+	</style>
+</head>
+<body>
+	<simulator>
+		<home>
+			<appicon is='uber' style="background-image:url(./img/icon-uber.png)"></appicon>
+			<appicon style="background-image:url(./img/icon-maps.png)"></appicon>
+			<dock>
+				<appicon style="background-image:url(./img/icon-barq.png)"></appicon>
+				<appicon style="background-image:url(./img/icon-tinder.webp)"></appicon>
+			</dock>
+		</home>
+	</simulator>
+</body>
+</html>
