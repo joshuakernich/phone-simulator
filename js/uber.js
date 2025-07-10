@@ -163,7 +163,6 @@ window.UberApp = function(){
 	function addCharacter(x,y,img,text){
 		let $char = $(`
 			<character style='background-image:url(${img})'>
-
 			</character>`).appendTo('maptranslate').css({
 			left:junctions[y][x].x*MAPSIZE,
 			top:junctions[y][x].y*MAPSIZE,
@@ -204,6 +203,28 @@ window.UberApp = function(){
 	$(document).on('keypress',function(e){
 		if(e.which==32) doNextStep();
 	})
+
+	function carSwerve(x,y,deg,duration){
+
+		let nTick = 0;
+		$('car').animate({
+			
+			left:junctions[y][x].x*MAPSIZE,
+			top:junctions[y][x].y*MAPSIZE,
+		},{
+			step:function(){
+				nTick++;
+
+				if(nTick%20==0){
+					let nDirSwerve = -1 + Math.floor( Math.random()*3 );
+					$('car').attr('r',deg + nDirSwerve * 45);
+				}
+				
+			},
+			duration: duration,
+			easing:'linear',
+		});
+	}
 
 	function carTo(x,y,deg,duration=2000){
 		
@@ -283,12 +304,8 @@ window.UberApp = function(){
 			addMessage('ok i won’t');
 		},() => {
 			// car goes off-road
-			carTo(10,8,270,500);
-			carTo(10,8,225,200);
-			carTo(8,8,180,800);
-			carTo(8,8,225,200);
-			carTo(8,8,270,300);
-			carTo(8,8,315,200);
+			carSwerve(10,8,270,1000);
+			carSwerve(7,8,180,5000);
 		},()=>{
 			carTo(5,8,180,2500);
 		},() => {
@@ -311,12 +328,26 @@ window.UberApp = function(){
 			carTo(10,9,0);
 			carTo(10,12,270);
 		},()=> {
-			carTo(7,12,180);
 			addMessage('got kicked out - they were all prudesssss anyway');
 			$('time').text('3 minutes');
 		},()=>{
-			carTo(7,14,0);
-			carTo(1,14,180);
+			addCharacter(7,12,'./img/char-nun.png');
+			carTo(8,12,0);
+		},()=>{
+			addCharacter(7,12,'./img/char-blood.png');
+			carTo(6,12,0);
+		},()=>{
+			addCharacter(4,12,'./img/char-rhino.png');
+			carTo(5,12,0);
+		},()=>{
+			addCharacter(4,12,'./img/char-blood.png');
+			carTo(3,12,0);
+		},()=>{
+			addCharacter(1,12,'./img/char-reviewer.png');
+			carTo(2,12,0);
+		},()=>{
+			addCharacter(1,12,'./img/char-blood.png');
+			carTo(0,12,0);
 		},() => {
 			addMessage('adiossss fuckheadss');
 		},() => {
