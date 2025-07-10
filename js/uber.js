@@ -160,6 +160,16 @@ window.UberApp = function(){
 		}).attr('r',180).show();
 	}
 
+	function addCharacter(x,y,img,text){
+		let $char = $(`
+			<character style='background-image:url(${img})'>
+
+			</character>`).appendTo('maptranslate').css({
+			left:junctions[y][x].x*MAPSIZE,
+			top:junctions[y][x].y*MAPSIZE,
+		}).attr('id',text);
+	}
+
 	function addDestination(x,y,img,text){
 		let $destination = $(`
 			<destination>
@@ -195,7 +205,7 @@ window.UberApp = function(){
 		if(e.which==32) doNextStep();
 	})
 
-	function carTo(x,y,deg,duration=10000){
+	function carTo(x,y,deg,duration=2000){
 		
 		$('car').animate({
 			
@@ -244,6 +254,7 @@ window.UberApp = function(){
 
 			carTo(10,4,180);
 			carTo(10,6,270);
+		},()=> {
 			carTo(7,6,180);
 		},() => {
 			$('time').text('15 minutes');
@@ -269,11 +280,8 @@ window.UberApp = function(){
 		},() => {
 			addMessage('don’t open the box',true);
 		},() => {
-			addMessage('why what’s in the box');
+			addMessage('ok i won’t');
 		},() => {
-				addMessage('it’s a live snake don’t open it',true);
-		},() => {
-			addMessage('lmao i open box');
 			// car goes off-road
 			carTo(10,8,270,500);
 			carTo(10,8,225,200);
@@ -281,36 +289,34 @@ window.UberApp = function(){
 			carTo(8,8,225,200);
 			carTo(8,8,270,300);
 			carTo(8,8,315,200);
+		},()=>{
+			carTo(5,8,180,2500);
 		},() => {
-			$('avatar').css('background-image','url(./img/avatar-snake.png)');
+			addMessage('ssssss');
+		},()=> {
 			$('name').text('Snake');
 			$('rating').text('2.75');
-			addMessage('ssssss');
-		},() => {
-			// NOKIA SNAKE 
-			carTo(5,8,180,2500);
-			carTo(5,6,90,500);
-			carTo(7,6,0,500);
-			carTo(7,4,90,500);
-			carTo(6,4,180,500);
-			carTo(6,3,90,500);
-			carTo(8,3,0,500);
-			carTo(8,4,270,500);
-			carTo(10,4,0,500);
-
+			$('avatar').css('background-image','url(./img/avatar-snake.png)');
+			addMessage('this issss my car now');
+		},()=>{
+			carTo(5,7,90);
+			carTo(10,7,0);
 			carTo(10,9,270);
 			carTo(6,9,180);
-			addMessage('this issss my car now');
 		},() => {
 			$('time').text('37 minutes');
 			addDestination(6,9,'./img/icon-snake.png','Late n Live Sexy Snake Show');
 		},() => {
+			removeDestination('Late n Live Sexy Snake Show');
 			carTo(10,9,0);
 			carTo(10,12,270);
+		},()=> {
 			carTo(7,12,180);
-			removeDestination('Late n Live Sexy Snake Show');
 			addMessage('got kicked out - they were all prudesssss anyway');
 			$('time').text('3 minutes');
+		},()=>{
+			carTo(7,14,0);
+			carTo(1,14,180);
 		},() => {
 			addMessage('adiossss fuckheadss');
 		},() => {

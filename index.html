@@ -79,7 +79,7 @@
 			right: 0px;
 			bottom: 0px;
 			margin: auto;
-			background: url(./img/wallpaper-cat.jpg);
+			background: url(./img/bg-mountains.jpeg);
 			background-size: cover;
 			background-position: center;
 			box-sizing: border-box;
@@ -179,8 +179,8 @@
 		}
 
 		car{
-			width: 190px;
-			height: 137.5px;
+			width: calc( 1.2 * 190px );
+			height: calc( 1.2 * 137.5px );
 			background: url(./img/car-sprite-transparent.png);
 			background-size: 300%;
 			display: block;
@@ -324,8 +324,8 @@
 
 		destination:after{
 			content: "";
-			width: var(--grid);
-			height: var(--grid);
+			width: calc( var(--grid) * 1.2);
+			height: calc( var(--grid) * 1.2);
 			border: 15px solid black;
 			position: absolute;
 			transform: translate(-50%,-50%);
@@ -413,8 +413,10 @@
 			<appicon is='uber' style="background-image:url(./img/icon-uber.png)"></appicon>
 			<appicon style="background-image:url(./img/icon-maps.png)"></appicon>
 			<dock>
-				<appicon style="background-image:url(./img/icon-barq.png)"></appicon>
-				<appicon style="background-image:url(./img/icon-tinder.webp)"></appicon>
+				<appicon style="background-image:url(./img/icon-phone.jpeg)"></appicon>
+				<appicon style="background-image:url(./img/icon-messages.png)"></appicon>
+				<appicon style="background-image:url(./img/icon-mail.jpeg)"></appicon>
+				<appicon style="background-image:url(./img/icon-camera.png)"></appicon>
 			</dock>
 		</home>
 	</simulator>
