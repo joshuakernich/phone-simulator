@@ -331,25 +331,33 @@ window.UberApp = function(){
 			addMessage('got kicked out - they were all prudesssss anyway');
 			$('time').text('3 minutes');
 		},()=>{
-			addCharacter(7,12,'./img/char-nun.png');
-			carTo(8,12,0);
+			$('maptranslate').animate({
+				top: -500,
+				left: 300,
+			});
+			carTo(9,12,180);
 		},()=>{
-			addCharacter(7,12,'./img/char-blood.png');
-			carTo(6,12,0);
+			addCharacter(8,12,'./img/char-nun.png');
 		},()=>{
-			addCharacter(4,12,'./img/char-rhino.png');
-			carTo(5,12,0);
+			addCharacter(8,12,'./img/char-blood.png');
+			carTo(7,12,180,500);
 		},()=>{
-			addCharacter(4,12,'./img/char-blood.png');
-			carTo(3,12,0);
+			addCharacter(5,12,'./img/char-rhino.png');
 		},()=>{
-			addCharacter(1,12,'./img/char-reviewer.png');
-			carTo(2,12,0);
+			addCharacter(5,12,'./img/char-blood.png');
+			carTo(4,12,180,500);
 		},()=>{
-			addCharacter(1,12,'./img/char-blood.png');
-			carTo(0,12,0);
+			addCharacter(2,12,'./img/char-reviewer.png');
+		},()=>{
+			addCharacter(2,12,'./img/char-blood.png');
+			carTo(1,12,180,500);
 		},() => {
+			$('maptranslate').animate({
+				top: -600,
+				left: 700,
+			});
 			addMessage('adiossss fuckheadss');
+			carTo(-5,12,180);
 		},() => {
 			addMessage('ssSs');
 			addMessage('5 starsss bosss?');
