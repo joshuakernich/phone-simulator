@@ -10,16 +10,24 @@
 		$(function(){
 
 			const H = 1920;
+			let app;
 
 			setInterval(function(){
 				let scale = $(window).innerHeight()/H;
 				$('simulator').css({ 'transform':'scale('+scale+')'});
 			},100);
 
+			$(document).on('keydown',function(e){
+				if(e.which == 32) $('appicon[is="uber"]').click();
+				if(e.which == 49) $('appicon[is="uber"]').click();
+			})
+
 
 			$('appicon[is="uber"]').click(function(){
 
-				let app = new UberApp();
+				if(app) return;
+
+				app = new UberApp();
 				app.$el.appendTo('simulator');
 				
 				app.$el.css({
@@ -68,7 +76,7 @@
 			height: 1920px;
 			box-sizing: border-box;
 			overflow: hidden;
-			border-radius: 70px;
+			
 			transform-origin: top left;
 		}
 
@@ -94,7 +102,6 @@
 			bottom: 0px;
 			margin: auto;
 			background: #222;
-			border-radius: 70px;
 			overflow: hidden;
 		}
 
@@ -176,6 +183,11 @@
 
 		path[thicc='3']{
 			stroke-width: 60;
+		}
+
+		path[thicc='10']{
+			stroke-width: 350;
+			stroke: #B4D2FF;
 		}
 
 		car{
@@ -416,6 +428,44 @@
 			text-align: center;
 		}
 
+		wanted{
+			position: absolute;
+			display: block;
+			top: 0px;
+			left: 0px;
+			margin: var(--grid);
+			font-size: 100px;
+			text-align: center;
+			line-height: 100px;
+			display: none;
+		}
+
+		pursuers{
+			position: absolute;
+			display: block;
+			top: 50%;
+			left: 0px;
+			width: 0px;
+			height: 0px;
+		}
+
+		police{
+			width: calc( 1.2 * 190px );
+			height: calc( 1.2 * 137.5px );
+			background: url(./img/police-sprite-transparent.png);
+			background-size: 300%;
+			display: block;
+			position: absolute;
+			transform: translate(-50%,-50%);
+			z-index: 1;
+			background-position: -100% -100%;
+			display: none;
+		}
+
+		pursuers police:nth-of-type(1){ left: -120px; top:50px; }
+		pursuers police:nth-of-type(2){ left: -270px; top:80px; }
+		pursuers police:nth-of-type(3){ left: -420px; top:110px; }
+
 	</style>
 </head>
 <body>
@@ -423,6 +473,11 @@
 		<home>
 			<appicon is='uber' style="background-image:url(./img/icon-uber.png)"></appicon>
 			<appicon style="background-image:url(./img/icon-maps.png)"></appicon>
+			<appicon style="background-image:url(./img/icon-tinder.webp)"></appicon>
+			<appicon style="background-image:url(./img/icon-duolingo.png)"></appicon>
+			<appicon style="background-image:url(./img/icon-facebook.png)"></appicon>
+			<appicon style="background-image:url(./img/icon-citymapper.png)"></appicon>
+			<appicon style="background-image:url(./img/icon-photos.png)"></appicon>
 			<dock>
 				<appicon style="background-image:url(./img/icon-phone.jpeg)"></appicon>
 				<appicon style="background-image:url(./img/icon-messages.png)"></appicon>

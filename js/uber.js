@@ -5,8 +5,14 @@ window.UberApp = function(){
 			<layer>
 				<map>
 					<maptranslate>
-						<svg width=2000 height=2000 viewBox='0 0 1 1'></svg>
-						<car r=270></car>
+						<svg width=3000 height=3000 viewBox='0 0 1.5 1.5'></svg>
+						<car r=270>
+							<pursuers>
+								<police r=180></police>
+								<police r=180></police>
+								<police r=180></police>
+							</pursuers>
+						</car>
 					</maptranslate>
 				</map>
 			</layer>
@@ -23,6 +29,10 @@ window.UberApp = function(){
 						</messages>
 					</messageswrapper>
 				</panel>
+				<wanted>
+					<img src='./img/ui-wanted.png'/>
+					<p>★★★★☆</p>
+				</wanted>
 			</layer>
 		</app>`);
 
@@ -59,8 +69,10 @@ window.UberApp = function(){
 	const ROADS = [
 		//main roads
 		{ thicc:3, from:{x:10,y:0}, to:{x:10,y:20} },
-		{ thicc:2, from:{x:0,y:12}, to:{x:10,y:12} },
-		{ thicc:2, from:{x:10,y:8}, to:{x:20,y:8} },
+		{ thicc:2, from:{x:0,y:12}, to:{x:11,y:12} },
+		{ thicc:2, from:{x:10,y:8}, to:{x:18,y:8} },
+		
+		
 
 		//left
 		{ from:{x:5,y:0}, to:{x:5,y:12} },
@@ -95,22 +107,26 @@ window.UberApp = function(){
 		//right
 		{ from:{x:10,y:9}, to:{x:15,y:9} },
 		{ from:{x:15,y:5}, to:{x:15,y:9} },
-		{ from:{x:15,y:5}, to:{x:20,y:5} },
-		{ from:{x:15,y:6}, to:{x:20,y:6} },
+		{ from:{x:15,y:5}, to:{x:18,y:5} },
+		{ from:{x:15,y:6}, to:{x:18,y:6} },
 		{ from:{x:15,y:7}, to:{x:18,y:7} },
-		{ from:{x:18,y:5}, to:{x:18,y:9} },
-		{ from:{x:18,y:9}, to:{x:20,y:9} },
+		{ from:{x:18,y:0}, to:{x:18,y:20} },
 
-		{ from:{x:10,y:1}, to:{x:20,y:1} },
-		{ from:{x:10,y:3}, to:{x:20,y:3} },
-		{ from:{x:10,y:4}, to:{x:20,y:4} },
+		{ from:{x:10,y:1}, to:{x:18,y:1} },
+		{ from:{x:10,y:3}, to:{x:18,y:3} },
+		{ from:{x:10,y:4}, to:{x:18,y:4} },
 
-		{ from:{x:10,y:13}, to:{x:20,y:13} },
+		{ from:{x:10,y:13}, to:{x:18,y:13} },
 		{ from:{x:10,y:14}, to:{x:13,y:14} },
 		{ from:{x:13,y:13}, to:{x:13,y:17} },
-		{ from:{x:10,y:15}, to:{x:20,y:15} },
-		{ from:{x:10,y:17}, to:{x:20,y:17} },
-		{ from:{x:10,y:18}, to:{x:20,y:18} },
+		{ from:{x:10,y:15}, to:{x:18,y:15} },
+		{ from:{x:10,y:17}, to:{x:18,y:17} },
+		{ from:{x:10,y:18}, to:{x:18,y:18} },
+
+		{ from:{x:11,y:8}, to:{x:11,y:12} },
+
+		//ocean
+		{ thicc:10, from:{x:20,y:0}, to:{x:20,y:20} },
 
 	]
 
@@ -167,6 +183,8 @@ window.UberApp = function(){
 			left:junctions[y][x].x*MAPSIZE,
 			top:junctions[y][x].y*MAPSIZE,
 		}).attr('id',text);
+
+		return $char;
 	}
 
 	function addDestination(x,y,img,text){
@@ -325,41 +343,68 @@ window.UberApp = function(){
 			addDestination(6,9,'./img/icon-snake.png','Late n Live Sexy Snake Show');
 		},() => {
 			removeDestination('Late n Live Sexy Snake Show');
-			carTo(10,9,0);
-			carTo(10,12,270);
+			carTo(5,9,180);
+			carTo(5,12,270);
 		},()=> {
 			addMessage('got kicked out - they were all prudesssss anyway');
 			$('time').text('3 minutes');
 		},()=>{
+			carTo(7,12,0,500);
+		},()=>{
+			addCharacter(9,12,'./img/char-nun.png');
+		},()=>{
+			addCharacter(9,12,'./img/char-blood.png');
+			carTo(11,12,0,500);
+			
+		},()=>{
 			$('maptranslate').animate({
-				top: -500,
-				left: 300,
-			});
-			carTo(9,12,180);
+				left: 0,
+				top: -100,
+			})
+			carTo(11,11,90,500);
+			addCharacter(11,10,'./img/char-rhino.png');
 		},()=>{
-			addCharacter(8,12,'./img/char-nun.png');
+			addCharacter(11,10,'./img/char-blood.png');
+			carTo(11,8,90,500);
 		},()=>{
-			addCharacter(8,12,'./img/char-blood.png');
-			carTo(7,12,180,500);
+			carTo(12,8,0,500);
+			addCharacter(13,7,'./img/char-reviewer.png');
 		},()=>{
-			addCharacter(5,12,'./img/char-rhino.png');
-		},()=>{
-			addCharacter(5,12,'./img/char-blood.png');
-			carTo(4,12,180,500);
-		},()=>{
-			addCharacter(2,12,'./img/char-reviewer.png');
-		},()=>{
-			addCharacter(2,12,'./img/char-blood.png');
-			carTo(1,12,180,500);
+			addCharacter(13,7,'./img/char-blood.png');
+			carTo(14,6,45,500);
 		},() => {
+			carTo(14,8,270);
+			carTo(15,8,0);
 			$('maptranslate').animate({
-				top: -600,
-				left: 700,
-			});
+				left: -300,
+				top: -100,
+			})
+		},()=>{
+			$('wanted').show();
+		},()=>{
+			carTo(16,8,0);
+			$('police').eq(0).show();
+		},()=>{
+			carTo(18,8,0);
+			$('police').eq(1).show();
+			$('police').eq(2).show();
+			$('maptranslate').animate({
+				left: -520,
+				top: -100,
+			})
+		},() => {
 			addMessage('adiossss fuckheadss');
-			carTo(-5,12,180);
+		},()=>{
+			carTo(20,8,0,1000);
 		},() => {
+			$('car').css('background','none');
+			let $ripple = addCharacter(20,8,'./img/char-ripple.png');
+			$ripple.css({
+				'transform':'translate(-50%, -50%) scale(2)',
+				'opacity':0.5});
+		},()=>{
 			addMessage('ssSs');
+		},()=> {
 			addMessage('5 starsss bosss?');
 		}
 	]
